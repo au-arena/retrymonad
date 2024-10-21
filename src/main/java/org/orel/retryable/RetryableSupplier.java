@@ -7,10 +7,10 @@ import org.orel.operator.FaillibleSupplier;
 public class RetryableSupplier<T> implements FaillibleSupplier<T, Exception> {
     protected final FaillibleSupplier<T, Exception> delegate;
 
-    protected final RetryConfig RetryConfig;
+    protected final RetryConfig retryConfig;
 
-    public RetryableSupplier(FaillibleSupplier<T, Exception> delegate, RetryConfig RetryConfig) {
-        this.RetryConfig = RetryConfig;
+    public RetryableSupplier(FaillibleSupplier<T, Exception> delegate, RetryConfig retryConfig) {
+        this.retryConfig = retryConfig;
         this.delegate = delegate;
     }
 
@@ -18,6 +18,6 @@ public class RetryableSupplier<T> implements FaillibleSupplier<T, Exception> {
     public T get() throws Exception {
         FaillibleFunction<Void, T, Exception> supplier = ignored -> delegate.get();
 
-        return new RetryableFunction<>(supplier, RetryConfig).apply(null);
+        return new RetryableFunction<>(supplier, retryConfig).apply(null);
     }
 }

@@ -26,6 +26,6 @@ public class RetryableSupplierWithValidation<T> extends RetryableSupplier<T> imp
             }
             return value;
         };
-        return new RetryableFunction<>(validatingSupplier, RetryConfig).apply(null);
+        return new RetryableFunction<>(validatingSupplier, retryConfig).apply(null);
     }
 }

@@ -68,18 +68,18 @@ public interface Try<T> {
     }
 
     static <U, V> Function<U, Try<V>> of(
-            FaillibleFunction<? super U, ? extends V, Exception> function, RetryConfig RetryConfig) {
-        var retryableFunction = new RetryableFunction<>(function, RetryConfig);
+            FaillibleFunction<? super U, ? extends V, Exception> function, RetryConfig retryConfig) {
+        var retryableFunction = new RetryableFunction<>(function, retryConfig);
         return of(retryableFunction);
     }
 
-    static <U> Try<U> run(FaillibleSupplier<? extends U, Exception> supplier, RetryConfig RetryConfig) {
-        var retryableSupplier = new RetryableSupplier<>(supplier, RetryConfig);
+    static <U> Try<U> run(FaillibleSupplier<? extends U, Exception> supplier, RetryConfig retryConfig) {
+        var retryableSupplier = new RetryableSupplier<>(supplier, retryConfig);
         return run(retryableSupplier);
     }
 
-    static Try<Void> run(FaillibleRunnable<Exception> runnable, RetryConfig RetryConfig) {
-        var retryableRunnable = new RetryableRunnable(runnable, RetryConfig);
+    static Try<Void> run(FaillibleRunnable<Exception> runnable, RetryConfig retryConfig) {
+        var retryableRunnable = new RetryableRunnable(runnable, retryConfig);
         return run(retryableRunnable);
     }
 
@@ -103,24 +103,24 @@ public interface Try<T> {
     }
 
     default <R> Try<R> thenCompose(
-            FaillibleFunction<? super T, Try<? extends R>, Exception> function, RetryConfig RetryConfig) {
-        var retryableFunction = new RetryableFunction<>(function, RetryConfig);
+            FaillibleFunction<? super T, Try<? extends R>, Exception> function, RetryConfig retryConfig) {
+        var retryableFunction = new RetryableFunction<>(function, retryConfig);
         return thenCompose(retryableFunction);
     }
 
     default <R> Try<R> thenApply(
-            FaillibleFunction<? super T, ? extends R, Exception> function, RetryConfig RetryConfig) {
-        var retryableFunction = new RetryableFunction<>(function, RetryConfig);
+            FaillibleFunction<? super T, ? extends R, Exception> function, RetryConfig retryConfig) {
+        var retryableFunction = new RetryableFunction<>(function, retryConfig);
         return thenApply(retryableFunction);
     }
 
-    default Try<Void> thenRun(FaillibleRunnable<Exception> runnable, RetryConfig RetryConfig) {
-        RetryableRunnable retryableRunnable = new RetryableRunnable(runnable, RetryConfig);
+    default Try<Void> thenRun(FaillibleRunnable<Exception> runnable, RetryConfig retryConfig) {
+        RetryableRunnable retryableRunnable = new RetryableRunnable(runnable, retryConfig);
         return thenRun(retryableRunnable);
     }
 
-    default Try<Void> thenAccept(FaillibleConsumer<? super T, Exception> consumer, RetryConfig RetryConfig) {
-        var retryableConsumer = new RetryableConsumer<>(consumer, RetryConfig);
+    default Try<Void> thenAccept(FaillibleConsumer<? super T, Exception> consumer, RetryConfig retryConfig) {
+        var retryableConsumer = new RetryableConsumer<>(consumer, retryConfig);
         return thenAccept(retryableConsumer);
     }
 

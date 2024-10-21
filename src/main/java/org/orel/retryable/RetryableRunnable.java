@@ -7,10 +7,10 @@ import org.orel.operator.FaillibleRunnable;
 public class RetryableRunnable implements FaillibleRunnable<Exception> {
     private final FaillibleRunnable<Exception> delegate;
 
-    private final RetryConfig RetryConfig;
+    private final RetryConfig retryConfig;
 
-    public RetryableRunnable(FaillibleRunnable<Exception> delegate, RetryConfig RetryConfig) {
-        this.RetryConfig = RetryConfig;
+    public RetryableRunnable(FaillibleRunnable<Exception> delegate, RetryConfig retryConfig) {
+        this.retryConfig = retryConfig;
         this.delegate = delegate;
     }
 
@@ -21,6 +21,6 @@ public class RetryableRunnable implements FaillibleRunnable<Exception> {
             return null;
         };
 
-        new RetryableFunction<>(runnable, RetryConfig).apply(null);
+        new RetryableFunction<>(runnable, retryConfig).apply(null);
     }
 }

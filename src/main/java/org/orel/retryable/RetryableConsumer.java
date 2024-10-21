@@ -7,10 +7,10 @@ import org.orel.operator.FaillibleFunction;
 public class RetryableConsumer<T> implements FaillibleConsumer<T, Exception> {
     private final FaillibleConsumer<T, Exception> delegate;
 
-    private final RetryConfig RetryConfig;
+    private final RetryConfig retryConfig;
 
-    public RetryableConsumer(FaillibleConsumer<T, Exception> delegate, RetryConfig RetryConfig) {
-        this.RetryConfig = RetryConfig;
+    public RetryableConsumer(FaillibleConsumer<T, Exception> delegate, RetryConfig retryConfig) {
+        this.retryConfig = retryConfig;
         this.delegate = delegate;
     }
 
@@ -21,6 +21,6 @@ public class RetryableConsumer<T> implements FaillibleConsumer<T, Exception> {
             return null;
         };
 
-        new RetryableFunction<>(consumer, RetryConfig).apply(t);
+        new RetryableFunction<>(consumer, retryConfig).apply(t);
     }
 }
